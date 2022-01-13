@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/react@15.4.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.4.2/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js">
+    </script>
+    <style>
+        div#calculator {
+            display: inline-block;
+            height: "20%";
+            width: "20%";
+        }
+        
+        button {
+            text-align: center;
+            height: inherit;
+            width: inherit;
+        }
+        
+        #showExpression {
+            height: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="calculator">
+
+    </div>
+    <div id="showExpression"></div>
+    <div id="ans">Ans :</div>
+    <script>
+        let operators = [
+            ['9', '8', '7', '+'],
+            ['6', '5', '4', '-'],
+            ['3', '2', '1', '%'],
+            ['C', '0', 'x', '=']
+        ];
+        class Table extends React.Component {
+            createButton(b) {
+                return React.createElement("button", null, b);
+            }
+            createTd(l, i) {
+
+                return React.createElement("td", {
+                    'key': i
+                }, this.createButton(l));
+            }
+            renderTr(operators, i) {
+
+                return React.createElement("tr", {
+                    'key': i
+                }, operators.map((operator, j) => this.createTd(operator, i + j)));
+            }
+            render() {
+
+                let ans =
+                    React.createElement("table", null, this.props.operators.map((operatorA, i) => this.renderTr(operatorA, i)));
+
+                return ans;
+            }
+        }
+
+        let t = React.createElement(Table, {
+            operators
+        }, null);
+
+        ReactDOM.render(t, document.getElementById("calculator"));
+    </script>
+    <script src="../CalculatorApp/manageActions.js">
+    </script>
+</body>
+
+</html>
